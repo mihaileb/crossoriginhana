@@ -1,0 +1,33 @@
+{
+  "name": "crossregionservice",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "^6",
+    "del-cli": "^5.0.0",
+    "express": "^4",
+    "hdb": "^0.19.0"
+  },
+  "devDependencies": {
+    "sqlite3": "^5"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "cleanup": "del-cli --force mta_archives",
+    "deploy:eu10": "npm run build:cf:eu10 && npm run deploy:cf:eu10",
+    "deploy:eu20": "npm run build:cf:eu20 && npm run deploy:cf:eu20",
+    "undeploy": "cf undeploy crossregionservice --delete-services",
+    "build:cf:eu10": "npm run cleanup && mbt build --mtar=crossregionservice.mtar -e mtaext/eu10.mtaext",
+    "deploy:cf:eu10": "cf deploy mta_archives/crossregionservice.mtar -e mtaext/eu10.mtaext --version-rule ALL",
+    "build:cf:eu20": "npm run cleanup && mbt build --mtar=crossregionservice.mtar -e mtaext/eu20.mtaext",
+    "deploy:cf:eu20": "cf deploy mta_archives/crossregionservice.mtar -e mtaext/eu20.mtaext --version-rule ALL"
+  },
+  "cds": {
+    "requires": {
+      "db": "hana-cloud"
+    }
+  }
+}
