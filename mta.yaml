@@ -10,20 +10,20 @@ build-parameters:
       commands:
         - npx -p @sap/cds-dk cds build --production
 modules:
-  - name: crossregionservice-srv
-    type: nodejs
-    path: gen/srv
-    parameters:
-      buildpack: nodejs_buildpack
-      memory: 512M      
-    build-parameters:
-      builder: npm-ci
-    provides:
-      - name: srv-api
-        properties:
-          srv-url: '${default-url}'
-    requires:
-      - name: crossregionservice-db
+  # - name: crossregionservice-srv
+  #   type: nodejs
+  #   path: gen/srv
+  #   parameters:
+  #     buildpack: nodejs_buildpack
+  #     memory: 512M      
+  #   build-parameters:
+  #     builder: npm-ci
+  #   provides:
+  #     - name: srv-api
+  #       properties:
+  #         srv-url: '${default-url}'
+  #   requires:
+  #     - name: crossregionservice-db
   - name: crossregionservice-db-deployer
     type: hdb
     path: gen/db
@@ -32,9 +32,15 @@ modules:
       memory: 512M
     requires:
       - name: crossregionservice-db
+      - name: other-region-hana-keys     
 resources:
   - name: crossregionservice-db
     type: com.sap.xs.hdi-container
+    properties:
+      hdi-container-name: ${service-name}    
     parameters:
       service: hana
       service-plan: hdi-shared
+
+  - name: other-region-hana-keys
+    type: org.cloudfoundry.existing-service     
