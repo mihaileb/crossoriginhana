@@ -1,5 +1,5 @@
 _schema-version: '3.1'
-ID: crossregionservice
+ID: replication
 version: 1.0.0
 description: A simple CAP project.
 parameters:
@@ -10,7 +10,7 @@ build-parameters:
       commands:
         - npx -p @sap/cds-dk cds build --production
 modules:
-  - name: crossregionservice-srv
+  - name: replication-srv
     type: nodejs
     path: gen/srv
     parameters:
@@ -23,26 +23,21 @@ modules:
         properties:
           srv-url: '${default-url}'
     requires:
-      - name: cross-container-service
-  - name: crossregionservice-db-deployer
+      - name: replication-db
+  - name: replication-db-deployer
     type: hdb
     path: gen/db
     parameters:
       buildpack: nodejs_buildpack
       memory: 512M
     requires:
-        - name: crossregionservice-db
-          properties:
-            TARGET_CONTAINER: ~{hdi-container-name}
-        - name: cross-container-service     
+      - name: replication-db
+      
 resources:
-  - name: crossregionservice-db
+  - name: replication-db
     type: com.sap.xs.hdi-container
-    properties:
-      hdi-container-name: ${service-name}
-  - name: cross-container-service
     parameters:
-      service-name: cross-container-service
-    properties:
-      the-service-name: crossregionservice-db-eu20
-    type: org.cloudfoundry.existing-service      
+      service: hana
+      service-plan: hdi-shared
+      config:
+        schema: CELLNEX    

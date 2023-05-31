@@ -1,6 +1,6 @@
-ID: crossregionservice.eu10
+ID: replication.eu10
 _schema-version: '3.1.0'
-extends: crossregionservice
+extends: replication
 
 
 # resources:

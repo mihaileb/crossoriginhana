@@ -1,5 +1,5 @@
 {
-  "name": "crossregionservice",
+  "name": "replication",
   "version": "1.0.0",
   "description": "A simple CAP project.",
   "repository": "<Add your repository here>",
@@ -19,11 +19,11 @@
     "cleanup": "del-cli --force mta_archives",
     "deploy:eu10": "npm run build:cf:eu10 && npm run deploy:cf:eu10",
     "deploy:eu20": "npm run build:cf:eu20 && npm run deploy:cf:eu20",
-    "undeploy": "cf undeploy crossregionservice --delete-services",
-    "build:cf:eu10": "npm run cleanup && mbt build --mtar=crossregionservice.mtar -e mtaext/eu10.mtaext",
-    "deploy:cf:eu10": "cf deploy mta_archives/crossregionservice.mtar -e mtaext/eu10.mtaext --version-rule ALL",
-    "build:cf:eu20": "npm run cleanup && mbt build --mtar=crossregionservice.mtar -e mtaext/eu20.mtaext",
-    "deploy:cf:eu20": "cf deploy mta_archives/crossregionservice.mtar -e mtaext/eu20.mtaext --version-rule ALL"
+    "undeploy": "cf undeploy replication --delete-services",
+    "build:cf:eu10": "npm run cleanup && mbt build --mtar=replication.mtar -e mtaext/eu10.mtaext",
+    "deploy:cf:eu10": "cf deploy mta_archives/replication.mtar -e mtaext/eu10.mtaext --version-rule ALL",
+    "build:cf:eu20": "npm run cleanup && mbt build --mtar=replication.mtar -e mtaext/eu20.mtaext",
+    "deploy:cf:eu20": "cf deploy mta_archives/replication.mtar -e mtaext/eu20.mtaext --version-rule ALL"
   },
   "cds": {
     "requires": {
