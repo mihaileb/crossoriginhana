@@ -1,1 +1,12 @@
-{}
+{
+    "[production]": {
+        "requires": {
+          "db": {
+            "kind": "hana",
+            "vcap": {
+              "label": "user-provided"
+            }
+          }
+        }
+    }
+}

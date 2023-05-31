@@ -23,7 +23,9 @@ modules:
         properties:
           srv-url: '${default-url}'
     requires:
-      - name: crossregionservice-db
+      - name: cross-container-service
+        properties:
+          TARGET_CONTAINER: ~{hdi-container-name}         
   - name: crossregionservice-db-deployer
     type: hdb
     path: gen/db
@@ -31,22 +33,12 @@ modules:
       buildpack: nodejs_buildpack
       memory: 512M
     requires:
-      - name: crossregionservice-db
-        properties:
-          TARGET_CONTAINER: ~{hdi-container-name}
-      - name: cross-container-service
-        group: SERVICE_REPLACEMENTS
-        properties:
-          key: ServiceName_EU20
-          service: ~{the-service-name}          
+        - name: cross-container-service
+          properties:
+            TARGET_CONTAINER: ~{hdi-container-name}   
 resources:
-  - name: crossregionservice-db
-    type: com.sap.xs.hdi-container
+  - name: cross-container-service
     properties:
       hdi-container-name: ${service-name}
-  - name: cross-container-service
-    parameters:
-      service-name: cross-container-service
-    properties:
-      the-service-name: ${crossregionservice-db-eu20}
+      parameters:   
     type: org.cloudfoundry.existing-service      
