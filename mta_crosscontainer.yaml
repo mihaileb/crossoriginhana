@@ -32,9 +32,19 @@ modules:
       memory: 512M
     requires:
       - name: crossregionservice-db
+        properties:
+          TARGET_CONTAINER: ~{hdi-container-name}
+      - name: other-region-hana-keys     
 resources:
   - name: crossregionservice-db
     type: com.sap.xs.hdi-container
+    properties:
+      hdi-container-name: ${service-name}    
     parameters:
       service: hana
       service-plan: hdi-shared
+
+  - name: other-region-hana-keys
+    type: org.cloudfoundry.existing-service
+    parameters:
+      service-name: other-region-hana-keys        
