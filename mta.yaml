@@ -38,6 +38,8 @@ resources:
     type: com.sap.xs.hdi-container
     parameters:
       service: hana
-      service-plan: hdi-shared
+      service-plan: schema
       config:
-        schema: CELLNEX    
+        schema: CELLNEX
+        user: HANATECHNICALUSER_REMOTE
+        password: Services2023_Services2023  
