@@ -31,8 +31,15 @@ modules:
       buildpack: nodejs_buildpack
       memory: 512M
     requires:
-      - name: cross-container-service     
+        - name: crossregionservice-db
+          properties:
+            TARGET_CONTAINER: ~{hdi-container-name}
+        - name: cross-container-service     
 resources:
+  - name: crossregionservice-db
+    type: com.sap.xs.hdi-container
+    properties:
+      hdi-container-name: ${service-name}
   - name: cross-container-service
     parameters:
       service-name: cross-container-service
